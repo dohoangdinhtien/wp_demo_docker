@@ -30,4 +30,6 @@ RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
     rm /usr/local/etc/php/php.ini-production
 
 # RUN mkdir /var/www/html/wp-content/plugins/demo
-COPY plugins/demo /var/www/html/wp-content/plugins/demo
+RUN mkdir /var/www/html/wp-content/mu-plugins
+COPY load.php /var/www/html/wp-content/mu-plugins
+# COPY plugins/demo /var/www/html/wp-content/plugins/demo
