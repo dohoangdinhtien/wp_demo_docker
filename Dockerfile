@@ -1,28 +1,25 @@
-FROM php:5.6-apache
+# WordPress Dockerfile: Create container from official WordPress image, basic customizations.
+# docker build -t wordpress_local:wp_custom_1.0 .
 
-RUN a2enmod rewrite
+FROM wordpress:latest
 
-# install the PHP extensions we need
-#RUN apt-get update && apt-get install -y libpng12-dev libjpeg-dev && rm -rf /var/lib/apt/lists/* \
-#	&& docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
-#	&& docker-php-ext-install gd
-#RUN docker-php-ext-install mysqli
+# APT Update/Upgrade, then install packages we need
+RUN apt update && \
+    apt upgrade -y && \
+    apt autoremove && \
+    apt install -y \
+    vim \
+    wget \
+    mariadb-client
 
-VOLUME /var/www/html
+# Replace php.ini
+COPY php.ini /usr/local/etc/php
 
-ENV WORDPRESS_VERSION 4.2.1
-ENV WORDPRESS_UPSTREAM_VERSION 4.2.1
-ENV WORDPRESS_SHA1 c93a39be9911591b19a94743014be3585df0512f
-
-# upstream tarballs include ./wordpress/ so this gives us /usr/src/wordpress
-RUN curl -o wordpress.tar.gz -SL https://wordpress.org/wordpress-${WORDPRESS_UPSTREAM_VERSION}.tar.gz \
-	&& echo "$WORDPRESS_SHA1 *wordpress.tar.gz" | sha1sum -c - \
-	&& tar -xzf wordpress.tar.gz -C /usr/src/ \
-	&& rm wordpress.tar.gz \
-	&& chown -R www-data:www-data /usr/src/wordpress
-
-COPY docker-entrypoint.sh /entrypoint.sh
-
-# grr, ENTRYPOINT resets CMD now
-ENTRYPOINT ["/entrypoint.sh"]
-CMD ["apache2-foreground"]
+# Install WP-CLI
+RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
+    php wp-cli.phar --info&& \
+    chmod +x wp-cli.phar && \
+    mv wp-cli.phar /usr/local/bin/wp && \
+    # Remove old php.ini files (wihtout creating new image)
+    rm /usr/local/etc/php/php.ini-development && \
+    rm /usr/local/etc/php/php.ini-production
