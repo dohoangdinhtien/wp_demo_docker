@@ -1,8 +1,8 @@
 # WordPress Dockerfile: Create container from official WordPress image, basic customizations.
 # docker build -t wordpress_local:wp_custom_1.0 .
 
-#FROM wordpress:latest
-FROM wordpress:php8.3-fpm
+FROM wordpress:latest
+#FROM wordpress:php8.3-fpm
 
 # APT Update/Upgrade, then install packages we need
 RUN apt update && \
