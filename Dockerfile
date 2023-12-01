@@ -33,5 +33,5 @@ WORKDIR /usr/src/wordpress
 # RUN mkdir /var/www/html/wp-content/plugins/demo
 RUN mkdir /var/www/html/wp-content/mu-plugins
 # COPY load.php /var/www/html/wp-content/mu-plugins
-COPY plugins/load.php /var/www/html/wp-content/mu-plugins/load.php
-COPY plugins/demo /var/www/html/wp-content/mu-plugins/demo
+# COPY plugins/load.php /var/www/html/wp-content/mu-plugins/load.php
+COPY plugins/ /var/www/html/wp-content/mu-plugins/
