@@ -17,7 +17,7 @@ RUN apt-get update \
     && pecl install redis \
     && docker-php-ext-enable redis
 
-# Replace php.ini
+# Replace php.ini Test
 #COPY php.ini /usr/local/etc/php
 
 COPY plugins/ ./wp-content/plugins/custom-plugin/
