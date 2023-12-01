@@ -21,7 +21,7 @@ RUN apt-get update \
 #COPY php.ini /usr/local/etc/php
 
 RUN mkdir /var/www/html/wp-content/plugins/demo
-COPY plugins/demo /var/www/html/wp-content/plugins/demo
+COPY plugins/demo /var/www/html/wp-content/plugins/
 
 # Install WP-CLI
 RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
