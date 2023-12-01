@@ -9,9 +9,8 @@ RUN apt update && \
     apt upgrade -y && \
     apt autoremove && \
     apt install -y \
-    vim \
-    wget \
-    mariadb-client
+    nano \
+    wget
 
 RUN apt-get update \
     && pecl install redis \
