@@ -18,10 +18,7 @@ RUN apt-get update \
     && docker-php-ext-enable redis
 
 # Replace php.ini Test
-#COPY php.ini /usr/local/etc/php
-
-RUN mkdir /var/www/html/wp-content/plugins/demo
-COPY plugins/demo /var/www/html/wp-content/plugins/
+# COPY php.ini /usr/local/etc/php
 
 # Install WP-CLI
 RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
@@ -31,3 +28,6 @@ RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
     # Remove old php.ini files (wihtout creating new image)
     rm /usr/local/etc/php/php.ini-development && \
     rm /usr/local/etc/php/php.ini-production
+
+# RUN mkdir /var/www/html/wp-content/plugins/demo
+COPY plugins/demo /var/www/html/wp-content/plugins/
