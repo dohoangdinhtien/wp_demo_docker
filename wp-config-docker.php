@@ -22,6 +22,7 @@
 
 // IMPORTANT: this file needs to stay in-sync with https://github.com/WordPress/WordPress/blob/master/wp-config-sample.php
 // (it gets parsed by the upstream wizard in https://github.com/WordPress/WordPress/blob/f27cb65e1ef25d11b535695a660e7282b98eb742/wp-admin/setup-config.php#L356-L392)
+define( 'WP_ALLOW_MULTISITE', true );
 
 // a helper function to lookup "env_FILE", "env", then fallback
 if (!function_exists('getenv_docker')) {
@@ -110,6 +111,15 @@ $table_prefix = getenv_docker('WORDPRESS_TABLE_PREFIX', 'wp_');
 define( 'WP_DEBUG', !!getenv_docker('WORDPRESS_DEBUG', '') );
 
 /* Add any custom values between this line and the "stop editing" line. */
+define( 'MULTISITE', true );
+define( 'SUBDOMAIN_INSTALL', true );
+define( 'DOMAIN_CURRENT_SITE', getenv_docker('DOMAIN_CURRENT_SITE', 'put your doamin') );
+define( 'PATH_CURRENT_SITE', '/' );
+define( 'SITE_ID_CURRENT_SITE', 1 );
+define( 'BLOG_ID_CURRENT_SITE', 1 );
+
+define('WPMU_PLUGIN_DIR', '/wp-content/mu-plugins');
+define('WPMU_PLUGIN_URL', WP_CONTENT_URL . '/mu-plugins');
 
 // If we're behind a proxy server and using HTTPS, we need to alert WordPress of that fact
 // see also https://wordpress.org/support/article/administration-over-ssl/#using-a-reverse-proxy
