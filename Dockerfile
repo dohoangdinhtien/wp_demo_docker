@@ -12,7 +12,7 @@ RUN apt update && \
     wget \
     mariadb-client
 
-RUN docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
+RUN docker-php-ext-configure gd \
 	&& docker-php-ext-install gd
 
 # Replace php.ini
