@@ -12,7 +12,9 @@ RUN apt update && \
     wget \
     mariadb-client
 
-RUN apt-get update && apt-get install php-redis
+RUN apt-get update \
+    && && pecl install redis \
+    && docker-php-ext-enable redis
 #    && /usr/local/bin/docker-php-ext-install gd
 
 # Replace php.ini
