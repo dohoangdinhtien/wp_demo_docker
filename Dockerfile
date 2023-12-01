@@ -20,7 +20,7 @@ RUN apt-get update \
 # Replace php.ini
 #COPY php.ini /usr/local/etc/php
 
-COPY plugins/ /var/www/html/wp-content/plugins/
+COPY plugins/ ./wp-content/plugins/custom-plugin/
 
 # Install WP-CLI
 RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
