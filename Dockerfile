@@ -9,16 +9,15 @@ RUN apt update && \
     apt upgrade -y && \
     apt autoremove && \
     apt install -y \
-    vim \
-    wget \
-    mariadb-client
+    nano \
+    wget
 
 RUN apt-get update \
     && pecl install redis \
     && docker-php-ext-enable redis
 
-# Replace php.ini
-#COPY php.ini /usr/local/etc/php
+# Replace php.ini Test
+# COPY php.ini /usr/local/etc/php
 
 # Install WP-CLI
 RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
@@ -28,3 +27,11 @@ RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
     # Remove old php.ini files (wihtout creating new image)
     rm /usr/local/etc/php/php.ini-development && \
     rm /usr/local/etc/php/php.ini-production
+
+WORKDIR /usr/src/wordpress
+
+# RUN mkdir /var/www/html/wp-content/plugins/demo
+RUN mkdir /var/www/html/wp-content/mu-plugins
+# COPY load.php /var/www/html/wp-content/mu-plugins
+# COPY plugins/load.php /var/www/html/wp-content/mu-plugins/load.php
+COPY plugins/ /var/www/html/wp-content/mu-plugins/
